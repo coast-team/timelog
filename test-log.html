@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <title>Logging Example</title>
+</head>
+
+<body>
+
+  <script src="GoTime.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="logging.js"></script>
+  <script src="timelog.js"></script>
+
+  <script>
+    var socket = io.connect(location.origin);
+
+    var ls = new LoggingService("totoDoc", "42+43/2", socket, 1000);
+
+    ls.logSentOperation("op1");
+    setTimeout(function() {
+      ls.logReceivedOperation("op1");
+    }, 1000);
+    setTimeout(function() {
+      ls.logSentOperation("op2");
+    }, 2000);
+    setTimeout(function() {
+      ls.logIntegratedOperation("op1");
+      ls.logReceivedOperation("op2");
+      ls.logIntegratedOperation("op2");
+    }, 5000);
+  </script>
+
+</body>
+
+</html>

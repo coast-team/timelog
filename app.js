@@ -12,6 +12,9 @@ const NAME_DB = process.env.MONGODB_NAME || "eventlogs",
   PORT_DB = process.env.MONGODB_PORT ||  27017;
 
 var eventSchema = new mongoose.Schema({
+  docID: {
+    type: String
+  },
   siteID: {
     type: String
   },
@@ -27,7 +30,7 @@ var eventSchema = new mongoose.Schema({
   }
 });
 
-var eventModel = mongoose.model('events', eventSchema);
+var EventModel = mongoose.model('events', eventSchema);
 
 // Connection to the mongoDB running instance
 mongoose.connect('mongodb://' + HOST_DB + ':' + PORT_DB + '/' + NAME_DB);
@@ -45,12 +48,14 @@ server.listen(port, function() {
 app.use(express.static('static'));
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/test.html');
+  res.sendFile(__dirname + '/test-log.html');
 });
 
 io.on('connection', function(socket) {
   socket.on('events', function(events) {
-    events.forEach(function(jsonEvent) {
+    console.log("received some events to store in the db");
+    var jsonEvents = JSON.parse(events);
+    jsonEvents.forEach(function(jsonEvent) {
       var event = new EventModel(jsonEvent);
       event.save(function(err) {
         if (err) {

@@ -8,7 +8,7 @@ var Logger = (function () {
     this._consumer = a_consumer;
   };
 
-  Logger.prototype = {
+  result.prototype = {
     constructor: result,
 
     // Constants
@@ -21,9 +21,9 @@ var Logger = (function () {
     // Access
     _representation_of: function (a_op_id, a_document_id, a_site_id, a_timestamp, a_event_tag) {
       return {
-        id: a_op_id,
-        doc: a_document_id,
-        site: a_site_id,
+        operationID: a_op_id,
+        docID: a_document_id,
+        siteID: a_site_id,
         timestamp: a_timestamp,
         event: a_event_tag
       };
@@ -31,22 +31,25 @@ var Logger = (function () {
 
     // change
     log_sent_operation: function (a_op_id, a_document_id, a_site_id, a_timestamp) {
-      this._buffer_[this.buffer.length] = this._representation_of (a_op_id, a_document_id, a_site_id, a_timestamp, this.Sent_operation_tag);
+      this._buffer_[this._buffer_.length] = this._representation_of (a_op_id, a_document_id, a_site_id, a_timestamp, this.Sent_operation_tag);
     },
 
     log_received_operation: function (a_op_id, a_document_id, a_site_id, a_timestamp) {
-      this._buffer_[this.buffer.length] = this._representation_of (a_op_id, a_document_id, a_site_id, a_timestamp, this.Received_operation_tag);
+      this._buffer_[this._buffer_.length] = this._representation_of (a_op_id, a_document_id, a_site_id, a_timestamp, this.Received_operation_tag);
     },
 
     log_integrated_operation: function (a_op_id, a_document_id, a_site_id, a_timestamp) {
-      this._buffer_[this.buffer.length] = this._representation_of (a_op_id, a_document_id, a_site_id, a_timestamp, this.Integrated_operation_tag);
+      this._buffer_[this._buffer_.length] = this._representation_of (a_op_id, a_document_id, a_site_id, a_timestamp, this.Integrated_operation_tag);
     },
 
     flush: function () {
-      var json = JSON.stringify (this._buffer_);
-      this._consumer(this._name_, json);
+      console.log("flushing...");
+      if (this._buffer_.length > 0) {
+        var json = JSON.stringify (this._buffer_);
+        this._consumer(this._name_, json);
 
-      this._buffer_ = [];
+        this._buffer_ = [];
+      }
     }
   };
 
