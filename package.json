@@ -4,14 +4,19 @@
   "description": "Basic logging service (each event is timestamped). Timestamps are real clocks that are synchronized using GoTime.js (see https://github.com/nicksardo/GoTime)",
   "main": "app.js",
   "dependencies": {
-    "socket.io": "^1.4.5",
     "express": "^4.13.4",
-    "help": "^2.1.2"
+    "help": "^2.1.2",
+    "mongoose": "^4.4.7",
+    "socket.io": "^1.4.5"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "AGPL"
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coast-team/timelog.git"
+  }
 }
