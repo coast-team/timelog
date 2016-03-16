@@ -1,0 +1,17 @@
+{
+  "name": "timelog",
+  "version": "1.0.0",
+  "description": "Basic logging service (each event is timestamped). Timestamps are real clocks that are synchronized using GoTime.js (see https://github.com/nicksardo/GoTime)",
+  "main": "app.js",
+  "dependencies": {
+    "socket.io": "^1.4.5",
+    "express": "^4.13.4",
+    "help": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "AGPL"
+}

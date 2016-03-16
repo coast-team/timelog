@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>GoTime Example</title>
+</head>
+<body>
+Local:<br />
+<h1 id="local"></h1>
+
+Server:<br />
+<h1 id="server"></h1>
+<h1 id="syncs">Sync History</h1>
+<table id="sync-table">
+</table>
+
+<h1>Stats</h1>
+Offset:  <span id="offset"></span> with best precision: <span id="precision"></span>
+
+
+<script src="GoTime.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    function appendHistory(t, method, offset, precision){
+        $('#sync-table').append("<tr><td>"+ (new Date(t)).toLocaleTimeString() +"</td><td>" + method + "</td><td>" + offset + "ms</td><td>" + precision + "ms</td></tr>")
+    }
+
+    function updateData(t, method, off, precision){
+        var l = new Date();
+        var s = new GoTime();
+        $('#local').text(l.getTime());
+        $('#server').text(s.getTime());
+
+        $('#offset').text(GoTime.getOffset());
+        $('#precision').text(GoTime.getPrecision());
+
+        appendHistory(t, method, off, precision)
+
+        console.log(GoTime.getHistory())
+    }
+
+
+    $(function() {
+        // Set options before first GoTime use
+        GoTime.setOptions({
+            //AjaxURL: "/time",
+            WhenSynced: updateData, // Is called for the first sync
+            OnSync: updateData,// Calls on ever sync starting with the second sync
+            SyncInitialTimeouts: [500, 3000, 9000, 15000],
+            SyncInterval: 20000 // Set this often for demo purposes only
+        });
+
+	    var socket = io.connect(location.origin);
+
+	    socket.on('time', function (data) {
+	      console.log('syncing from received server time ', data);
+		  GoTime.wsReceived(data)
+	    });
+
+		console.log(socket);
+
+        GoTime.wsSend(function(){
+			console.log('yop');
+            if (socket !== null && socket.connected) {
+				console.log('coucou');
+                socket.emit("time")
+                return true
+            }
+            return false
+        });
+    });
+</script>
+
+</body>
+</html>
