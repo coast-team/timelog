@@ -18,6 +18,8 @@ var Logger = (function () {
 
     Integrated_operation_tag: "integrated",
 
+    Joined_doc_tag: "joined",
+
     // Access
     _representation_of: function (a_op_id, a_document_id, a_site_id, a_timestamp, a_event_tag) {
       return {
@@ -40,6 +42,10 @@ var Logger = (function () {
 
     log_integrated_operation: function (a_op_id, a_document_id, a_site_id, a_timestamp) {
       this._buffer_[this._buffer_.length] = this._representation_of (a_op_id, a_document_id, a_site_id, a_timestamp, this.Integrated_operation_tag);
+    },
+
+    log_joined_doc: function (a_document_id, a_site_id, a_timestamp) {
+      this._buffer_[this._buffer_.length] = { docID: a_document_id, siteID: a_site_id, timestamp: a_timestamp, event: this.Joined_doc_tag };
     },
 
     flush: function () {

@@ -14,8 +14,9 @@
   <script>
     var socket = io.connect(location.origin);
 
-    var ls = new LoggingService("totoDoc", "42+43/2", socket, 1000);
+    var ls = new LoggingService("totoDoc", "site42", socket, 1000);
 
+    ls.logJoinedDoc();
     ls.logSentOperation("op1");
     setTimeout(function() {
       ls.logReceivedOperation("op1");

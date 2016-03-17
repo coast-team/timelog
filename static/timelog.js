@@ -47,6 +47,10 @@ var LoggingService = (function() {
 
     logIntegratedOperation: function(opID) {
       this.logger.log_integrated_operation(opID, this.docID, this.siteID, GoTime.now());
+    },
+
+    logJoinedDoc: function() {
+      this.logger.log_joined_doc(this.docID, this.siteID, GoTime.now());
     }
 
   };
