@@ -5,9 +5,9 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.13.4",
-    "help": "^2.1.2",
-    "mongoose": "^4.4.7",
-    "socket.io": "^1.4.5"
+    "help": "^3.0.2",
+    "mongoose": "^5.4.16",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
