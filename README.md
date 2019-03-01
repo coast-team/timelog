@@ -1,6 +1,8 @@
 
 # TimeLog
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/coast-team/timelog.svg)](https://greenkeeper.io/)
+
 Basic logging service (each event is timestamped). Timestamps are real clocks that are synchronized using GoTime.js from Nick Sardo (see https://github.com/nicksardo/GoTime)
 
 
